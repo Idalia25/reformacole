@@ -280,8 +280,9 @@
         };
 
         // Usa google.script.run si está en Apps Script, sino usa el simulador
-        const server = (typeof google !== 'undefined' && google.script) ? google.script.run : mockGas;
-//https://script.google.com/a/macros/cima.edu.pe/s/AKfycbzfMgF90VZ1BewnmndPqd6kpWZm9MxHtACk2w-PwvGYvLU8ckjDP9R2XR4D31Fr4qEZ/exec
+        //const server = (typeof google !== 'undefined' && google.script) ? google.script.run : mockGas;
+const GOOGLE_SHEETS_URL = "https://script.google.com/a/macros/cima.edu.pe/s/AKfycbzfMgF90VZ1BewnmndPqd6kpWZm9MxHtACk2w-PwvGYvLU8ckjDP9R2XR4D31Fr4qEZ/exec"; 
+        
         // ==========================================
         // ESTADO DEL JUEGO
         // ==========================================
