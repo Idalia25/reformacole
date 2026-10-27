@@ -97,7 +97,7 @@
                 </button>
             </div>
             
-            <div id="loading-msg" class="hidden text-center text-blue-600 font-semibold mt-4">Cargando datos...</div>
+            <div id="loading-msg" class="hidden text-center text-blue-600 font-semibold mt-4">Conectando con la base de datos...</div>
         </div>
 
         <!-- PANTALLA 2: JUEGO -->
@@ -182,11 +182,10 @@
 
         function speakQuestion(text) {
             if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel(); // Detener audio anterior
-                // Filtrar dejando solo letras y espacios (eliminando signos de puntuación)
+                window.speechSynthesis.cancel();
                 const cleanText = text.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, '');
                 const utterance = new SpeechSynthesisUtterance(cleanText);
-                utterance.lang = 'es-ES'; // Idioma Español
+                utterance.lang = 'es-ES'; 
                 utterance.rate = 1.1; 
                 window.speechSynthesis.speak(utterance);
             }
@@ -210,78 +209,59 @@
             setTimeout(() => {
                 overlay.classList.add('hidden');
                 textEl.classList.remove('feedback-pop');
-            }, 1000); // El destello dura 1 segundo
+            }, 1000); 
         }
 
         // ==========================================
-        // BANCO DE PREGUNTAS (Aproximadamente 25 para iniciar, expansible a 50)
-        // Dificultad variada: Conceptos básicos, fechas, personajes, consecuencias.
+        // BANCO DE PREGUNTAS
         // ==========================================
         const questionBank = [
-            // BÁSICAS
             { q: "¿Qué presidente peruano promulgó la Ley de Reforma Agraria en 1969?", options: ["Juan Velasco Alvarado", "Fernando Belaúnde Terry", "Alberto Fujimori", "Alan García"], answer: 0 },
             { q: "¿Cuál fue el objetivo principal de la Reforma Agraria en el Perú?", options: ["Industrializar el país rápidamente", "Redistribuir la tierra y eliminar el latifundismo", "Promover la inversión extranjera en la costa", "Privatizar todas las empresas agrícolas"], answer: 1 },
             { q: "¿Qué famosa frase acompañó la promulgación de la Reforma Agraria?", options: ["¡El Perú es primero!", "¡Campesino, el patrón ya no comerá más de tu pobreza!", "¡Tierra y libertad para todos!", "¡La agricultura es el futuro!"], answer: 1 },
             { q: "¿Qué tipo de propiedad buscaba eliminar principalmente la Reforma Agraria?", options: ["Minifundios", "Haciendas y Latifundios", "Cooperativas", "Comunidades Campesinas"], answer: 1 },
             { q: "¿En qué fecha exacta se promulgó la Ley de Reforma Agraria en Perú?", options: ["24 de junio de 1969", "28 de julio de 1968", "1 de mayo de 1970", "3 de octubre de 1968"], answer: 0 },
-            // INTERMEDIAS
-            { q: "¿Qué tipo de organizaciones asociativas se crearon para administrar las tierras expropiadas en la costa?", options: ["SAIS (Sociedades Agrícolas de Interés Social)", "CAPS (Cooperativas Agrarias de Producción)", "ONGs", "Empresas Comunales"], answer: 1 },
+            { q: "¿Qué tipo de organizaciones asociativas se crearon para administrar las tierras expropiadas en la costa?", options: ["SAIS", "CAPS (Cooperativas Agrarias de Producción)", "ONGs", "Empresas Comunales"], answer: 1 },
             { q: "¿Qué organizaciones asociativas se crearon principalmente en la sierra peruana?", options: ["CAPS", "SAIS (Sociedades Agrícolas de Interés Social)", "Sindicatos agrarios", "Gremios ganaderos"], answer: 1 },
             { q: "¿A qué sector de los terratenientes afectó económicamente la expropiación en la costa norte?", options: ["A los barones del azúcar", "A los productores de papa", "A los mineros artesanales", "A los ganaderos de alpacas"], answer: 0 },
             { q: "Antes de Velasco, ¿qué presidente promulgó una ley de reforma agraria más limitada en 1964?", options: ["Manuel Prado", "Fernando Belaúnde Terry", "Oscar R. Benavides", "José Bustamante y Rivero"], answer: 1 },
             { q: "¿Qué significa el acrónimo SINAMOS, creado durante el gobierno de Velasco?", options: ["Sistema Nacional de Apoyo a la Movilización Social", "Sindicato Nacional de Agricultores y Mineros", "Sociedad Industrial de Nuevos Agricultores", "Sistema Interno de Normas Agrarias"], answer: 0 },
-            // AVANZADAS
-            { q: "Desde una perspectiva económica a largo plazo, uno de los problemas de la Reforma Agraria fue:", options: ["El exceso de inversión privada", "La falta de capacitación técnica y capitalización de las cooperativas", "La sobreproducción de alimentos", "El enriquecimiento masivo de los campesinos"], answer: 1 },
+            { q: "Desde una perspectiva económica a largo plazo, uno de los problemas de la Reforma Agraria fue:", options: ["El exceso de inversión privada", "La falta de capacitación técnica y capitalización", "La sobreproducción de alimentos", "El enriquecimiento masivo de los campesinos"], answer: 1 },
             { q: "¿Qué documento se entregaba a los expropiados como forma de pago por sus tierras?", options: ["Dólares en efectivo", "Bonos de la Reforma Agraria", "Acciones mineras", "Lingotes de plata"], answer: 1 },
-            { q: "¿En qué consistía el sistema de 'enganche' que existía en las haciendas antes de la reforma?", options: ["Un sistema de riego automatizado", "Adelanto de dinero al campesino para obligarlo a trabajar para pagar la deuda", "Un tipo de arado tradicional", "La asociación libre de campesinos"], answer: 1 },
+            { q: "¿En qué consistía el sistema de 'enganche' que existía en las haciendas antes de la reforma?", options: ["Un sistema de riego automatizado", "Adelanto de dinero al campesino para obligarlo a trabajar", "Un tipo de arado tradicional", "La asociación libre de campesinos"], answer: 1 },
             { q: "¿Cómo se llamaba al campesino que trabajaba gratuitamente para el hacendado a cambio del uso de una pequeña parcela?", options: ["Yanacona o colono", "Obrero asalariado", "Burgués", "Capataz"], answer: 0 },
-            { q: "A pesar de la expropiación, ¿qué institución mantuvo gran parte de su poder y tierras durante la reforma?", options: ["Las fuerzas armadas", "La Iglesia Católica en algunas zonas", "La burguesía industrial (la reforma no afectó industria directamente)", "La burguesía industrial (la reforma no afectó industria directamente)"], answer: 3 },
-            // MÁS PREGUNTAS (Para acercarnos al banco solicitado)
-            { q: "¿Qué sector agrícola era el más moderno y capitalista en el Perú antes de 1969?", options: ["La agricultura de subsistencia en la sierra", "Las haciendas azucareras y algodoneras de la costa", "Las plantaciones cocaleras en la selva", "La ganadería en el altiplano"], answer: 1 },
-            { q: "¿Qué día se celebra actualmente el 'Día del Campesino', instaurado en lugar del 'Día del Indio'?", options: ["24 de junio", "1 de mayo", "8 de octubre", "30 de agosto"], answer: 0 },
-            { q: "¿Qué consecuencia demográfica indirecta aceleró el proceso histórico de la época (aunque la reforma intentó frenarla)?", options: ["La migración masiva del campo a la ciudad", "El despoblamiento del Perú", "La inmigración europea masiva", "El traslado de limeños a la selva"], answer: 0 },
-            { q: "El golpe de estado de Juan Velasco Alvarado ocurrió el 3 de octubre de 1968, derrocando a...", options: ["Víctor Raúl Haya de la Torre", "Fernando Belaúnde Terry", "Manuel Odría", "Ricardo Pérez Godoy"], answer: 1 },
-            { q: "¿Qué significa 'latifundio'?", options: ["Pequeña porción de tierra agrícola", "Gran extensión de tierra agrícola en manos de un solo propietario", "Tierra propiedad del Estado", "Cooperativa de campesinos independientes"], answer: 1 },
-            { q: "En la región de La Convención (Cusco), ¿quién lideró importantes movilizaciones campesinas previas a la reforma?", options: ["Hugo Blanco", "Abimael Guzmán", "Víctor Raúl Haya de la Torre", "Luis Banchero Rossi"], answer: 0 },
-            { q: "¿Qué pasó con las haciendas azucareras expropiadas de Casa Grande, Cartavio y Casagrande?", options: ["Fueron abandonadas", "Se convirtieron en Cooperativas Agrarias de Producción (CAP)", "Se vendieron a empresas chilenas", "Fueron parceladas en miles de minifundios individuales"], answer: 1 },
-            { q: "Una de las críticas a las SAIS y CAPs creadas por la reforma fue que...", options: ["Fueron demasiado exitosas y capitalistas", "Sufrieron de burocratización y corrupción administrativa", "Solo admitían a mujeres", "Exportaban demasiado alimento"], answer: 1 },
-            { q: "¿Cuál fue el impacto de la Reforma Agraria en las comunidades indígenas reconocidas?", options: ["Fueron expropiadas totalmente", "Fueron beneficiarias y en algunos casos reestructuradas", "Fueron obligadas a migrar a la costa", "Se convirtieron en empresas privadas"], answer: 1 },
-            { q: "¿Bajo qué plan de gobierno se ejecutó la Reforma Agraria de Velasco?", options: ["Plan Inca", "Plan Túpac Amaru", "Plan Perú", "Plan de Acción Inmediata"], answer: 0 }
-            // Nota para el docente: Puedes copiar y pegar más preguntas siguiendo este mismo formato para llegar a 50 o más.
+            { q: "A pesar de la expropiación, ¿qué institución mantuvo gran parte de su poder y tierras durante la reforma?", options: ["Las fuerzas armadas", "La Iglesia Católica en algunas zonas", "Los gremios petroleros", "La burguesía industrial"], answer: 1 }
         ];
 
         // ==========================================
-        // SIMULADOR DE GOOGLE APPS SCRIPT (Para pruebas en la web)
+        // CONEXIÓN CON APPS SCRIPT (GITHUB PAGES API)
         // ==========================================
-        const mockGas = {
+        const GOOGLE_SHEETS_URL = "https://script.google.com/macros/s/AKfycbwr0PIJze8elYG9lycUjY7hWLsIBUVLkIuuLHcdyuDzrn48XQg3AgcPdsmQ9AsquTMO/exec"; 
+        
+        const server = {
             withSuccessHandler: function(callback) {
                 return {
-                    getStudents: function(g, s) {
-                        // Simular retraso de red y devolver nombres falsos
-                        setTimeout(() => {
-                            const nombres = ["María Gonzales", "Ana López", "Lucía Mamani", "Carmen Quispe", "Sofía Vargas"];
-                            callback(nombres);
-                        }, 800);
+                    getStudents: function(grado, seccion) {
+                        fetch(`${GOOGLE_SHEETS_URL}?action=getStudents&grado=${grado}&seccion=${seccion}`)
+                            .then(response => response.json())
+                            .then(result => { callback(result.data || []); })
+                            .catch(error => { console.error('Error:', error); callback([]); });
                     },
-                    saveScore: function(n, g, s, pts) {
-                        setTimeout(() => { callback(); }, 500);
+                    saveScore: function(nombre, grado, seccion, puntaje) {
+                        fetch(`${GOOGLE_SHEETS_URL}?action=saveScore&nombre=${encodeURIComponent(nombre)}&grado=${grado}&seccion=${seccion}&puntaje=${puntaje}`)
+                            .then(response => response.json())
+                            .then(result => { callback(); })
+                            .catch(error => { console.error('Error:', error); callback(); });
                     },
                     getRanking: function() {
-                        setTimeout(() => {
-                            callback([
-                                {nombre: "Ana López", grado: "5", seccion: "A", puntaje: 250},
-                                {nombre: "Lucía Mamani", grado: "4", seccion: "B", puntaje: 180},
-                                {nombre: "Carmen Quispe", grado: "5", seccion: "C", puntaje: 120}
-                            ]);
-                        }, 800);
+                        fetch(`${GOOGLE_SHEETS_URL}?action=getRanking`)
+                            .then(response => response.json())
+                            .then(result => { callback(result.data || []); })
+                            .catch(error => { console.error('Error:', error); callback([]); });
                     }
                 };
             }
         };
-
-        // Usa google.script.run si está en Apps Script, sino usa el simulador
-        //const server = (typeof google !== 'undefined' && google.script) ? google.script.run : mockGas;
-const GOOGLE_SHEETS_URL = "https://script.google.com/macros/s/AKfycbzoe_yb5Hrv1QLeRtAO-Y1I3RhdD4BdQSI6WXVcDQR4W1l4UeOQjqR3D7C1EkM0W9kv/exec"; 
         
         // ==========================================
         // ESTADO DEL JUEGO
@@ -339,16 +319,18 @@ const GOOGLE_SHEETS_URL = "https://script.google.com/macros/s/AKfycbzoe_yb5Hrv1Q
             const seccion = elements.selSeccion.value;
             
             if (!grado || !seccion) {
-                alert('Por favor selecciona tu grado y sección.'); // Usado solo para validación simple, en ui real se evitaría
+                alert('Por favor selecciona tu grado y sección.');
                 return;
             }
 
             elements.loadingMsg.classList.remove('hidden');
             elements.btnBuscar.disabled = true;
+            elements.btnBuscar.classList.add('opacity-50', 'cursor-not-allowed');
 
             server.withSuccessHandler((alumnas) => {
                 elements.loadingMsg.classList.add('hidden');
                 elements.btnBuscar.disabled = false;
+                elements.btnBuscar.classList.remove('opacity-50', 'cursor-not-allowed');
                 
                 elements.selNombre.innerHTML = '<option value="">Selecciona tu nombre</option>';
                 if (alumnas && alumnas.length > 0) {
@@ -360,7 +342,7 @@ const GOOGLE_SHEETS_URL = "https://script.google.com/macros/s/AKfycbzoe_yb5Hrv1Q
                     });
                     elements.containerNombre.classList.remove('hidden');
                 } else {
-                    alert('No se encontraron estudiantes para este grado y sección. (Simulación: intenta cambiar y volver a intentar)');
+                    alert('No se encontraron estudiantes para este grado y sección en la Hoja de Cálculo.');
                 }
             }).getStudents(grado, seccion);
         });
@@ -369,6 +351,7 @@ const GOOGLE_SHEETS_URL = "https://script.google.com/macros/s/AKfycbzoe_yb5Hrv1Q
         elements.btnIniciar.addEventListener('click', () => {
             const nombre = elements.selNombre.value;
             if (!nombre) {
+                alert("Selecciona tu nombre para continuar.");
                 return;
             }
             
@@ -382,10 +365,8 @@ const GOOGLE_SHEETS_URL = "https://script.google.com/macros/s/AKfycbzoe_yb5Hrv1Q
         });
 
         function startGame() {
-            // Inicializar Audio Context para navegadores modernos
             if(Tone.context.state !== 'running') Tone.start();
 
-            // Mezclar preguntas (Fisher-Yates)
             currentQuestions = [...questionBank].sort(() => Math.random() - 0.5);
             currentIndex = 0;
             lives = 5;
@@ -437,7 +418,6 @@ const GOOGLE_SHEETS_URL = "https://script.google.com/macros/s/AKfycbzoe_yb5Hrv1Q
             elements.timerBar.style.width = `${percentage}%`;
             elements.timerText.textContent = `${timeLeft}s`;
             
-            // Cambiar color a rojo cuando quedan 5 segundos o menos
             if (timeLeft <= 5) {
                 elements.timerBar.classList.replace('bg-blue-500', 'bg-red-500');
             } else {
@@ -472,7 +452,7 @@ const GOOGLE_SHEETS_URL = "https://script.google.com/macros/s/AKfycbzoe_yb5Hrv1Q
 
         function loadQuestion() {
             if (currentIndex >= currentQuestions.length) {
-                endGame(true); // Ganó
+                endGame(true);
                 return;
             }
 
@@ -490,7 +470,6 @@ const GOOGLE_SHEETS_URL = "https://script.google.com/macros/s/AKfycbzoe_yb5Hrv1Q
                 elements.optionsContainer.appendChild(btn);
             });
             
-            // Iniciar tiempo y lectura de la pregunta
             startTimer();
             speakQuestion(q.q);
         }
@@ -499,7 +478,6 @@ const GOOGLE_SHEETS_URL = "https://script.google.com/macros/s/AKfycbzoe_yb5Hrv1Q
             clearInterval(timerInterval);
             window.speechSynthesis.cancel();
 
-            // Deshabilitar botones
             const buttons = elements.optionsContainer.querySelectorAll('button');
             buttons.forEach(b => b.disabled = true);
 
@@ -521,7 +499,6 @@ const GOOGLE_SHEETS_URL = "https://script.google.com/macros/s/AKfycbzoe_yb5Hrv1Q
                 btnElement.classList.replace('bg-white', 'bg-red-500');
                 btnElement.classList.replace('text-gray-700', 'text-white');
                 
-                // Mostrar correcta
                 buttons[q.answer].classList.replace('border-gray-200', 'border-green-500');
                 buttons[q.answer].classList.replace('bg-white', 'bg-green-100');
                 
@@ -555,7 +532,6 @@ const GOOGLE_SHEETS_URL = "https://script.google.com/macros/s/AKfycbzoe_yb5Hrv1Q
                 elements.endMessage.textContent = "Repasa el tema y vuelve a intentarlo.";
             }
 
-            // Guardar puntaje y cargar ranking
             elements.rankingList.innerHTML = '<li class="py-2 text-center text-gray-500">Guardando tu puntaje...</li>';
             
             server.withSuccessHandler(() => {
@@ -568,36 +544,33 @@ const GOOGLE_SHEETS_URL = "https://script.google.com/macros/s/AKfycbzoe_yb5Hrv1Q
             
             server.withSuccessHandler((ranking) => {
                 elements.rankingList.innerHTML = '';
-                if(ranking.length === 0) {
-                    elements.rankingList.innerHTML = '<li class="py-2 text-center text-gray-500">Aún no hay jugadoras en el ranking.</li>';
-                    return;
-                }
-
-                ranking.forEach((r, idx) => {
-                    const li = document.createElement('li');
-                    li.className = "py-3 flex justify-between items-center";
-                    
-                    let medal = '';
-                    if(idx === 0) medal = '🥇';
-                    else if(idx === 1) medal = '🥈';
-                    else if(idx === 2) medal = '🥉';
-                    else medal = `<span class="text-gray-400 font-bold ml-1">${idx+1}.</span>`;
-
-                    li.innerHTML = `
-                        <div class="flex items-center gap-3">
-                            <div class="text-xl w-6 text-center">${medal}</div>
-                            <div>
-                                <p class="font-bold text-gray-800">${r.nombre}</p>
-                                <p class="text-xs text-gray-500">${r.grado}° "${r.seccion}"</p>
+                if(ranking && ranking.length > 0) {
+                    ranking.forEach((r, index) => {
+                        const li = document.createElement('li');
+                        li.className = "py-3 flex justify-between items-center";
+                        
+                        let badgeColor = "bg-gray-200 text-gray-700";
+                        if(index === 0) badgeColor = "bg-yellow-400 text-yellow-900";
+                        else if(index === 1) badgeColor = "bg-gray-300 text-gray-800";
+                        else if(index === 2) badgeColor = "bg-orange-300 text-orange-900";
+                        
+                        li.innerHTML = `
+                            <div class="flex items-center gap-3">
+                                <span class="w-8 h-8 rounded-full ${badgeColor} flex items-center justify-center font-bold shadow-sm">${index + 1}</span>
+                                <div>
+                                    <p class="font-bold text-gray-800">${r.nombre}</p>
+                                    <p class="text-xs text-gray-500">${r.grado}° "${r.seccion}"</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="font-black text-green-700">${r.puntaje} pts</div>
-                    `;
-                    elements.rankingList.appendChild(li);
-                });
+                            <div class="font-black text-green-600 text-lg">${r.puntaje} pts</div>
+                        `;
+                        elements.rankingList.appendChild(li);
+                    });
+                } else {
+                    elements.rankingList.innerHTML = '<li class="py-2 text-center text-gray-500">Aún no hay registros en el ranking.</li>';
+                }
             }).getRanking();
         }
-
     </script>
 </body>
 </html>
