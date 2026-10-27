@@ -216,27 +216,42 @@
         // BANCO DE PREGUNTAS
         // ==========================================
         const questionBank = [
+            // BÁSICAS
             { q: "¿Qué presidente peruano promulgó la Ley de Reforma Agraria en 1969?", options: ["Juan Velasco Alvarado", "Fernando Belaúnde Terry", "Alberto Fujimori", "Alan García"], answer: 0 },
             { q: "¿Cuál fue el objetivo principal de la Reforma Agraria en el Perú?", options: ["Industrializar el país rápidamente", "Redistribuir la tierra y eliminar el latifundismo", "Promover la inversión extranjera en la costa", "Privatizar todas las empresas agrícolas"], answer: 1 },
             { q: "¿Qué famosa frase acompañó la promulgación de la Reforma Agraria?", options: ["¡El Perú es primero!", "¡Campesino, el patrón ya no comerá más de tu pobreza!", "¡Tierra y libertad para todos!", "¡La agricultura es el futuro!"], answer: 1 },
             { q: "¿Qué tipo de propiedad buscaba eliminar principalmente la Reforma Agraria?", options: ["Minifundios", "Haciendas y Latifundios", "Cooperativas", "Comunidades Campesinas"], answer: 1 },
             { q: "¿En qué fecha exacta se promulgó la Ley de Reforma Agraria en Perú?", options: ["24 de junio de 1969", "28 de julio de 1968", "1 de mayo de 1970", "3 de octubre de 1968"], answer: 0 },
-            { q: "¿Qué tipo de organizaciones asociativas se crearon para administrar las tierras expropiadas en la costa?", options: ["SAIS", "CAPS (Cooperativas Agrarias de Producción)", "ONGs", "Empresas Comunales"], answer: 1 },
+            // INTERMEDIAS
+            { q: "¿Qué tipo de organizaciones asociativas se crearon para administrar las tierras expropiadas en la costa?", options: ["SAIS (Sociedades Agrícolas de Interés Social)", "CAPS (Cooperativas Agrarias de Producción)", "ONGs", "Empresas Comunales"], answer: 1 },
             { q: "¿Qué organizaciones asociativas se crearon principalmente en la sierra peruana?", options: ["CAPS", "SAIS (Sociedades Agrícolas de Interés Social)", "Sindicatos agrarios", "Gremios ganaderos"], answer: 1 },
             { q: "¿A qué sector de los terratenientes afectó económicamente la expropiación en la costa norte?", options: ["A los barones del azúcar", "A los productores de papa", "A los mineros artesanales", "A los ganaderos de alpacas"], answer: 0 },
             { q: "Antes de Velasco, ¿qué presidente promulgó una ley de reforma agraria más limitada en 1964?", options: ["Manuel Prado", "Fernando Belaúnde Terry", "Oscar R. Benavides", "José Bustamante y Rivero"], answer: 1 },
             { q: "¿Qué significa el acrónimo SINAMOS, creado durante el gobierno de Velasco?", options: ["Sistema Nacional de Apoyo a la Movilización Social", "Sindicato Nacional de Agricultores y Mineros", "Sociedad Industrial de Nuevos Agricultores", "Sistema Interno de Normas Agrarias"], answer: 0 },
-            { q: "Desde una perspectiva económica a largo plazo, uno de los problemas de la Reforma Agraria fue:", options: ["El exceso de inversión privada", "La falta de capacitación técnica y capitalización", "La sobreproducción de alimentos", "El enriquecimiento masivo de los campesinos"], answer: 1 },
+            // AVANZADAS
+            { q: "Desde una perspectiva económica a largo plazo, uno de los problemas de la Reforma Agraria fue:", options: ["El exceso de inversión privada", "La falta de capacitación técnica y capitalización de las cooperativas", "La sobreproducción de alimentos", "El enriquecimiento masivo de los campesinos"], answer: 1 },
             { q: "¿Qué documento se entregaba a los expropiados como forma de pago por sus tierras?", options: ["Dólares en efectivo", "Bonos de la Reforma Agraria", "Acciones mineras", "Lingotes de plata"], answer: 1 },
-            { q: "¿En qué consistía el sistema de 'enganche' que existía en las haciendas antes de la reforma?", options: ["Un sistema de riego automatizado", "Adelanto de dinero al campesino para obligarlo a trabajar", "Un tipo de arado tradicional", "La asociación libre de campesinos"], answer: 1 },
+            { q: "¿En qué consistía el sistema de 'enganche' que existía en las haciendas antes de la reforma?", options: ["Un sistema de riego automatizado", "Adelanto de dinero al campesino para obligarlo a trabajar para pagar la deuda", "Un tipo de arado tradicional", "La asociación libre de campesinos"], answer: 1 },
             { q: "¿Cómo se llamaba al campesino que trabajaba gratuitamente para el hacendado a cambio del uso de una pequeña parcela?", options: ["Yanacona o colono", "Obrero asalariado", "Burgués", "Capataz"], answer: 0 },
-            { q: "A pesar de la expropiación, ¿qué institución mantuvo gran parte de su poder y tierras durante la reforma?", options: ["Las fuerzas armadas", "La Iglesia Católica en algunas zonas", "Los gremios petroleros", "La burguesía industrial"], answer: 1 }
+            { q: "A pesar de la expropiación, ¿qué institución mantuvo gran parte de su poder y tierras durante la reforma?", options: ["Las fuerzas armadas", "La Iglesia Católica en algunas zonas", "La burguesía industrial (la reforma no afectó industria directamente)", "Los gremios petroleros"], answer: 1 },
+            // MÁS PREGUNTAS
+            { q: "¿Qué sector agrícola era el más moderno y capitalista en el Perú antes de 1969?", options: ["La agricultura de subsistencia en la sierra", "Las haciendas azucareras y algodoneras de la costa", "Las plantaciones cocaleras en la selva", "La ganadería en el altiplano"], answer: 1 },
+            { q: "¿Qué día se celebra actualmente el 'Día del Campesino', instaurado en lugar del 'Día del Indio'?", options: ["24 de junio", "1 de mayo", "8 de octubre", "30 de agosto"], answer: 0 },
+            { q: "¿Qué consecuencia demográfica indirecta aceleró el proceso histórico de la época (aunque la reforma intentó frenarla)?", options: ["La migración masiva del campo a la ciudad", "El despoblamiento del Perú", "La inmigración europea masiva", "El traslado de limeños a la selva"], answer: 0 },
+            { q: "El golpe de estado de Juan Velasco Alvarado ocurrió el 3 de octubre de 1968, derrocando a...", options: ["Víctor Raúl Haya de la Torre", "Fernando Belaúnde Terry", "Manuel Odría", "Ricardo Pérez Godoy"], answer: 1 },
+            { q: "¿Qué significa 'latifundio'?", options: ["Pequeña porción de tierra agrícola", "Gran extensión de tierra agrícola en manos de un solo propietario", "Tierra propiedad del Estado", "Cooperativa de campesinos independientes"], answer: 1 },
+            { q: "En la región de La Convención (Cusco), ¿quién lideró importantes movilizaciones campesinas previas a la reforma?", options: ["Hugo Blanco", "Abimael Guzmán", "Víctor Raúl Haya de la Torre", "Luis Banchero Rossi"], answer: 0 },
+            { q: "¿Qué pasó con las haciendas azucareras expropiadas de Casa Grande, Cartavio y Casagrande?", options: ["Fueron abandonadas", "Se convirtieron en Cooperativas Agrarias de Producción (CAP)", "Se vendieron a empresas chilenas", "Fueron parceladas en miles de minifundios individuales"], answer: 1 },
+            { q: "Una de las críticas a las SAIS y CAPs creadas por la reforma fue que...", options: ["Fueron demasiado exitosas y capitalistas", "Sufrieron de burocratización y corrupción administrativa", "Solo admitían a mujeres", "Exportaban demasiado alimento"], answer: 1 },
+            { q: "¿Cuál fue el impacto de la Reforma Agraria en las comunidades indígenas reconocidas?", options: ["Fueron expropiadas totalmente", "Fueron beneficiarias y en algunos casos reestructuradas", "Fueron obligadas a migrar a la costa", "Se convirtieron en empresas privadas"], answer: 1 },
+            { q: "¿Bajo qué plan de gobierno se ejecutó la Reforma Agraria de Velasco?", options: ["Plan Inca", "Plan Túpac Amaru", "Plan Perú", "Plan de Acción Inmediata"], answer: 0 }
         ];
 
         // ==========================================
         // CONEXIÓN CON APPS SCRIPT (GITHUB PAGES API)
         // ==========================================
-        const GOOGLE_SHEETS_URL = "https://script.google.com/macros/s/AKfycbwr0PIJze8elYG9lycUjY7hWLsIBUVLkIuuLHcdyuDzrn48XQg3AgcPdsmQ9AsquTMO/exec"; 
+        // NOTA: Si después de dar a "Nueva implementación" en Apps Script te dan una URL nueva, reemplázala aquí:
+        const GOOGLE_SHEETS_URL = "https://script.google.com/macros/s/AKfycbzRgrKaDjFF31qWJZQkQJz0paizhCoiPdzjFqz7xrbCCKx8114S4rQPiRjFzvNYW4Ia/exec"; 
         
         const server = {
             withSuccessHandler: function(callback) {
@@ -244,8 +259,20 @@
                     getStudents: function(grado, seccion) {
                         fetch(`${GOOGLE_SHEETS_URL}?action=getStudents&grado=${grado}&seccion=${seccion}`)
                             .then(response => response.json())
-                            .then(result => { callback(result.data || []); })
-                            .catch(error => { console.error('Error:', error); callback([]); });
+                            .then(result => { 
+                                if (result.success) {
+                                    callback(result.data || []); 
+                                } else {
+                                    // Mostramos la alerta si hay un error desde el servidor
+                                    alert("Error desde Google Sheets: " + result.message);
+                                    callback([]);
+                                }
+                            })
+                            .catch(error => { 
+                                alert("Error de conexión. ¿Actualizaste tu URL en la variable GOOGLE_SHEETS_URL?");
+                                console.error('Error:', error); 
+                                callback([]); 
+                            });
                     },
                     saveScore: function(nombre, grado, seccion, puntaje) {
                         fetch(`${GOOGLE_SHEETS_URL}?action=saveScore&nombre=${encodeURIComponent(nombre)}&grado=${grado}&seccion=${seccion}&puntaje=${puntaje}`)
@@ -342,7 +369,8 @@
                     });
                     elements.containerNombre.classList.remove('hidden');
                 } else {
-                    alert('No se encontraron estudiantes para este grado y sección en la Hoja de Cálculo.');
+                    // Si no llega error de código, pero tampoco hay datos
+                    alert('No se encontraron estudiantes para este grado y sección en la Hoja de Cálculo. Verifica que tu hoja se llama "List".');
                 }
             }).getStudents(grado, seccion);
         });
@@ -544,31 +572,33 @@
             
             server.withSuccessHandler((ranking) => {
                 elements.rankingList.innerHTML = '';
-                if(ranking && ranking.length > 0) {
-                    ranking.forEach((r, index) => {
-                        const li = document.createElement('li');
-                        li.className = "py-3 flex justify-between items-center";
-                        
-                        let badgeColor = "bg-gray-200 text-gray-700";
-                        if(index === 0) badgeColor = "bg-yellow-400 text-yellow-900";
-                        else if(index === 1) badgeColor = "bg-gray-300 text-gray-800";
-                        else if(index === 2) badgeColor = "bg-orange-300 text-orange-900";
-                        
-                        li.innerHTML = `
-                            <div class="flex items-center gap-3">
-                                <span class="w-8 h-8 rounded-full ${badgeColor} flex items-center justify-center font-bold shadow-sm">${index + 1}</span>
-                                <div>
-                                    <p class="font-bold text-gray-800">${r.nombre}</p>
-                                    <p class="text-xs text-gray-500">${r.grado}° "${r.seccion}"</p>
-                                </div>
-                            </div>
-                            <div class="font-black text-green-600 text-lg">${r.puntaje} pts</div>
-                        `;
-                        elements.rankingList.appendChild(li);
-                    });
-                } else {
-                    elements.rankingList.innerHTML = '<li class="py-2 text-center text-gray-500">Aún no hay registros en el ranking.</li>';
+                
+                if(ranking.length === 0) {
+                    elements.rankingList.innerHTML = '<li class="py-2 text-center text-gray-500">Aún no hay jugadoras en el ranking.</li>';
+                    return;
                 }
+                
+                ranking.forEach((r, index) => {
+                    const li = document.createElement('li');
+                    li.className = "py-3 flex justify-between items-center";
+                    
+                    let badgeColor = "bg-gray-200 text-gray-700";
+                    if(index === 0) badgeColor = "bg-yellow-400 text-yellow-900";
+                    else if(index === 1) badgeColor = "bg-gray-300 text-gray-800";
+                    else if(index === 2) badgeColor = "bg-orange-300 text-orange-900";
+                    
+                    li.innerHTML = `
+                        <div class="flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-full ${badgeColor} flex items-center justify-center font-bold shadow-sm">${index + 1}</span>
+                            <div>
+                                <p class="font-bold text-gray-800">${r.nombre}</p>
+                                <p class="text-xs text-gray-500">${r.grado}° "${r.seccion}"</p>
+                            </div>
+                        </div>
+                        <div class="font-black text-green-600 text-lg">${r.puntaje} pts</div>
+                    `;
+                    elements.rankingList.appendChild(li);
+                });
             }).getRanking();
         }
     </script>
